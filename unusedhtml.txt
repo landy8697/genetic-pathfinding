@@ -1,0 +1,8 @@
+<div class="btn-group mx-2">
+    <button type="button" class="btn-sm bg-white">Save</button>
+    <button type="button" class="btn-sm bg-white">Discard</button>
+    <button type="button" class="btn-sm bg-transparent border-0 pt-2"
+            data-bs-toggle="tooltip" data-bs-placement="bottom"  title="save/discard evolution data to local storage">
+        <span class="material-symbols-outlined">info</span>
+    </button>
+</div>

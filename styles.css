@@ -1,3 +1,21 @@
 #sketch-holder{
     text-align: center;
 }
+#sliderbox{
+    width:310px; /* sample value - set it as you like*/
+    height:40px;
+    margin-top: -6px;
+    margin-left: 20px;
+}
+
+
+.sliderbox-col{
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.sliderbox-row{
+   height: 24px;
+}
