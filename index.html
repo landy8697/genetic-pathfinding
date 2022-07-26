@@ -4,13 +4,17 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>genetic-pathfinding-website</title>
+		<link href='https://fonts.googleapis.com/css?family=Megrim' rel='stylesheet'>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 		<link rel="stylesheet" href="styles.css"/>
 		<script src="libraries/p5.js"></script>
 		
-		<script src="uicontrol.js"></script>
+		<script src="ship.js"></script>
 		<script src="sketch.js"></script>
+		<script src="uicontrol.js"></script>
 		<style>
 			body {
 				margin: 0;
@@ -23,60 +27,147 @@
 		
 		
 	</head>
-	<body class="bg-light">
-		<div class="container">
-			<div class="my-2 d-flex justify-content-center" id="control-frame">
-				<h2 class="border-bottom">Genetic Pathfinding Algorithm</h2>
+	<body>
+		<div class="container-fluid">
+			<div class="my-2 d-flex justify-content-center">
+				<h2 id="title" class="border-bottom">Genetic Pathfinding Algorithm</h2>
 			</div>
 			
-			<div class="my-2 d-flex justify-content-center" id="control-frame">
-				<div class="d-flex flex-row">
+			<div class="my-2 d-flex justify-content-center">
+				<div class="d-flex flex-row  justify-content-start" id="control-frame">
 					
 					<div class="dropdown mx-2 d-flex align-items-stretch">
-						<button id="select-mode" class="btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-						  Select Mode
+						<button id="select-mode" class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+							Mode: Simulate
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-						  <li><button id="simulate" onclick="modeSimulate()"class="btn-sm dropdown-item" type="button">Simulate</button></li>
-						  <li><button id="replay" onclick="modeReplay()" class="btn-sm dropdown-item" type="button">Replay</button></li>
-						  <li><button id="customize" onclick="modeCustomize()" class="btn-sm dropdown-item" type="button">Customize</button></li>
+							<li><button id="simulate" class="btn btn-sm dropdown-item" type="button">Simulate</button></li>
+							<li><button id="replay" class="btn btn-sm dropdown-item" type="button">Replay</button></li>
+							<li><button id="customize" class="btn btn-sm dropdown-item" type="button">Customize</button></li>
 						</ul>
 					</div>
 
-					<div class="btn-group mx-2" role="group">
-						<button id="pause-play" onclick="changePausePlay()" type="button" class="btn-sm bg-white">
-							Pause
+					<div class="btn-group mx-2 show-simulate" role="group">
+						<button id="pause-play" type="button" class="btn btn-sm btn-primary">
+							<span class="bi bi-pause-fill align-middle"></span> Pause
 						</button>
-						<button type="button" class="btn-sm bg-white" data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Resets the Evolution">Reset</button>
+						<button id="reset" type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Resets the Evolution">
+							<span class="bi bi-arrow-clockwise align-middle"></span> Reset
+						</button>
 						
 					</div>
-					
-					<div id="sliderbox">
+
+					<div id="sliderbox" class="show-simulate">
 						<div class="row sliderbox-row">
 							<div class="col-6 sliderbox-col">
-								<input id="gen-size-range" onchange="changeGenSize()" type="range" class="form-range">
+								<input id="gen-size-range" type="range" class="form-range" min="50" max="1000" step="50" value="300">
 							</div>
-							<div class="col sliderbox-col">
-								<small>Generation size: 100</small>
+							<div id="gen-size-label" class="col sliderbox-col">
+								<small>Generation size: 300</small>
 							</div>
 						</div>
 						<div class="row sliderbox-row">
 							<div class="col-6 sliderbox-col">
-								<input type="range" class="form-range" id="customRange1">
+								<input id="mutation-rate-range" type="range" class="form-range" min="0" max="0.1" step="0.005" value="0.05">
 							</div>
-							<div class="col sliderbox-col">
-								<small>Mutation rate: 0.05</small>
+							<div id="mutation-rate-label" class="col sliderbox-col">
+								<small>Mutation rate: 0.050</small>
 							</div>
 						</div>
 					</div>
+					<div class="ps-0 show-replay d-none d-flex flex-nowrap">
+						<button  class="btn-sm bg-transparent border-0 fs-6 ">Show</button>	
+					</div>
+					<div class="btn-toolbar show-replay d-none" role="toolbar">
+						<div class="btn-group">
+							<input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="option1">All</label>
+						  
+							<input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="option2">Done</label>
+						  
+							<input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="option3">Best</label>
+						</div>
+						<div class="btn-group">
+							<button id="gradient-switch" class="mx-1 btn btn-sm btn-success">Gradient: On</button>
+						</div>
+					</div>
 					
+					<div class="ms-2 show-replay d-none d-flex flex-nowrap">
+						<button  class="btn-sm bg-transparent border-0 fs-6 ">Play</button>	
+					</div>
+					<div class="btn-group show-replay d-none" role="group">
+						<button type="button" class="btn btn-sm btn-outline-dark">
+							<i class="bi bi-chevron-double-left"></i>
+						</button>
+						<button type="button" class="btn btn-sm btn-outline-dark">						
+							<i class="bi bi-chevron-left"></i>
+						</button>
+						<button type="button" class="btn btn-sm btn-outline-dark">
+							<i class="bi bi-pause"></i>
+						</button>
+						<button type="button" class="btn btn-sm btn-outline-dark">						
+							<i class="bi bi-chevron-right"></i>
+						</button>
+						<button type="button" class="btn btn-sm btn-outline-dark">						
+							<i class="bi bi-chevron-double-right"></i>
+						</button>
+					</div>
+					<div class="ms-2 show-simulate show-replay d-flex flex-nowrap">
+						<button  class="btn-sm bg-transparent border-0 fs-6 ">Speed</button>	
+					</div>
+					<div class="btn-group show-simulate show-replay" role="group">
+						<button id="speed-multiply" type="button" class="btn btn-sm btn-outline-secondary">
+							x2
+						</button>
+						<button id="speed-divide" type="button" class="btn btn-sm btn-outline-secondary">						
+							&#247;2
+						</button>
+					</div>
 					
 
-					
-					<div class="mx-2">
-						<button id="generation-label" class="btn-sm bg-transparent border-0 fs-5">Generation 1</button>
-						
+					<div class="mx-2 btn-toolbar show-customize d-none" role="toolbar">
+						<div class="mx-2 btn-group">
+							<button type="button" class="btn btn-sm btn-outline-dark">
+								<i class="bi bi-arrow-counterclockwise"></i>
+							</button>
+							<button type="button" class="btn btn-sm btn-outline-dark">						
+								<i class="bi bi-arrow-clockwise"></i>
+							</button>
+						</div>
+						<div class="mx-2 btn-group">
+							<input type="radio" class="btn-check" name="options" id="draw-rect" autocomplete="off" checked />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="draw-rect">
+								<i class="bi bi-bounding-box-circles"></i>
+							</label>
+						  
+							<input type="radio" class="btn-check" name="options" id="move" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="move">
+								<i class="bi bi-arrows-move"></i>
+							</label>
+						  
+							<input type="radio" class="btn-check" name="options" id="delete" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="delete">
+								<i class="bi bi-trash"></i>
+							</label>
+
+							<input type="radio" class="btn-check" name="options" id="start-point" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="start-point">
+								<i class="bi bi-flag-fill"></i>
+							</label>
+
+							<input type="radio" class="btn-check" name="options" id="end-point" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="end-point">
+								<i class="bi bi-stopwatch"></i>
+							</label>
+						</div>
 					</div>
+
+					<div id="customize-info" class="d-inline-flex align-items-center justify-content-center show-customize d-none alert alert-info" role="alert">
+						<p class="mt-3"><small>Drag to change obstacle position</small></p>
+					</div>
+					
 				</div>
 				
 			</div>
@@ -91,5 +182,6 @@
 				return new bootstrap.Tooltip(tooltipTriggerEl)
 			})
 		</script>
+		
 	</body>
 </html>
