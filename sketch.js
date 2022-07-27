@@ -8,17 +8,17 @@ function setup() {
 	speed = 1;
 	gen = 1;
 	
-	test = new Population(300);
+	test = new Population(500);
 	test.update();
 	test.draw();
 }
 
 function pause(){
-	console.log(paused)
+	console.log("paused")
 }
 
 function play(){
-	console.log(paused)
+	console.log("unpaused")
 }
 var speed;
 var gen;
@@ -47,6 +47,7 @@ function draw() {
 	
 
 	strokeWeight(0)
+	fill(100, 100, 100);
 	text(`Generation ${gen}`, 780, 25);	
 	text(`Speed: ${speed}x`, 780, 50);	
 }

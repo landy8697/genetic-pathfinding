@@ -31,7 +31,7 @@ class Population{
         let newDots = new Array(this.size);
         for(let i=0; i<this.size; i++){
             newDots[i] = new Dot();
-            newDots[i].controls = this.dots[0].controls.clone();
+            //newDots[i].controls = this.dots[0].controls.clone();
         }
         this.dots = newDots;
     }
@@ -54,7 +54,7 @@ class Dot{
     }
 
     draw(){
-        fill(0);
+        stroke(255, 0, 0);
         ellipse(this.pos.x, this.pos.y, 2, 2);
     }
     move(){
@@ -104,4 +104,8 @@ class Controls{
         }
         return clone;
     }
+}
+
+function lerp(A, B, t){
+    return A + (B-A) * t;
 }

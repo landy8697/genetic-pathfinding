@@ -80,16 +80,16 @@
 					</div>
 					<div class="btn-toolbar show-replay d-none" role="toolbar">
 						<div class="btn-group">
-							<input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked />
-							<label class="btn btn-sm btn-outline-primary replay-options" for="option1" 
+							<input id="replay-all" type="radio" class="btn-check" name="options" autocomplete="off" checked />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="replay-all" 
 									data-bs-toggle="tooltip" data-bs-placement="bottom" title="Show all dots in generation">All</label>
 						  
-							<input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" />
-							<label class="btn btn-sm btn-outline-primary replay-options" for="option2" 
+							<input id="replay-done" type="radio" class="btn-check" name="options" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="replay-done" 
 									data-bs-toggle="tooltip" data-bs-placement="bottom" title="Show dots that reach goal">Done</label>
 						  
-							<input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" />
-							<label class="btn btn-sm btn-outline-primary replay-options" for="option3" 
+							<input id="replay-best" type="radio" class="btn-check" name="options" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="replay-best" 
 									data-bs-toggle="tooltip" data-bs-placement="bottom" title="Show only the best dot">Best</label>
 						</div>
 						<div class="btn-group">
@@ -102,11 +102,11 @@
 						<button  class="btn-sm bg-transparent border-0 fs-6 ">Play</button>	
 					</div>
 					<div class="btn-group show-replay d-none" role="group">
-						<button type="button" class="btn btn-sm btn-outline-primary" 
+						<button id="double-back" type="button" class="btn btn-sm btn-outline-primary" 
 								data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Back 10 Generations">
 							<i class="bi bi-chevron-double-left"></i>
 						</button>
-						<button type="button" class="btn btn-sm btn-outline-primary" 
+						<button id="back" type="button" class="btn btn-sm btn-outline-primary" 
 								data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Back 1 Generation">						
 							<i class="bi bi-chevron-left"></i>
 						</button>
@@ -114,11 +114,11 @@
 								data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Pause">
 							<i class="bi bi-play"></i>
 						</button>
-						<button type="button" class="btn btn-sm btn-outline-primary" 
+						<button id="forward" type="button" class="btn btn-sm btn-outline-primary" 
 								data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Forward 1 Generation">						
 							<i class="bi bi-chevron-right"></i>
 						</button>
-						<button type="button" class="btn btn-sm btn-outline-primary" 
+						<button id="double-forward" type="button" class="btn btn-sm btn-outline-primary" 
 								data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Forward 10 Generations">						
 							<i class="bi bi-chevron-double-right"></i>
 						</button>
@@ -138,43 +138,43 @@
 
 					<div class="mx-2 btn-toolbar show-customize d-none" role="toolbar">
 						<div class="mx-2 btn-group">
-							<button type="button" class="btn btn-sm btn-outline-dark" 
+							<button id="undo-btn" type="button" class="btn btn-sm btn-outline-primary" 
 									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Undo">
 								<i class="bi bi-arrow-counterclockwise"></i>
 							</button>
-							<button type="button" class="btn btn-sm btn-outline-dark" 
+							<button id="redo-btn" type="button" class="btn btn-sm btn-outline-primary" 
 									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Redo">	
 														
 								<i class="bi bi-arrow-clockwise"></i>
 							</button>
 						</div>
 						<div class="mx-3 btn-group">
-							<input type="radio" class="btn-check" name="options" id="draw-rect" autocomplete="off" checked />
+							<input id="draw-rect" type="radio" class="btn-check" name="options" autocomplete="off" checked />
 							<label class="btn btn-sm btn-outline-primary replay-options" for="draw-rect" 
 									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Draw an obstacle">
 								<i class="bi bi-bounding-box-circles"></i>
 							</label>
 						  
-							<input type="radio" class="btn-check" name="options" id="move" autocomplete="off" />
-							<label class="btn btn-sm btn-outline-primary replay-options" for="move" 
+							<input id="move-rect" type="radio" class="btn-check" name="options" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="move-rect" 
 									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Move an obstacle">
 								<i class="bi bi-arrows-move"></i>
 							</label>
 						  
-							<input type="radio" class="btn-check" name="options" id="delete" autocomplete="off" />
-							<label class="btn btn-sm btn-outline-primary replay-options" for="delete" 
+							<input id="del-rect" type="radio" class="btn-check" name="options" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="del-rect" 
 									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Delete an obstacle">
 								<i class="bi bi-trash"></i>
 							</label>
 
-							<input type="radio" class="btn-check" name="options" id="start-point" autocomplete="off" />
-							<label class="btn btn-sm btn-outline-primary replay-options" for="start-point" 
+							<input id="move-start" type="radio" class="btn-check" name="options" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="move-start" 
 									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Move start position">
 								<i class="bi bi-flag-fill"></i>
 							</label>
 
-							<input type="radio" class="btn-check" name="options" id="end-point" autocomplete="off" />
-							<label class="btn btn-sm btn-outline-primary replay-options" for="end-point" 
+							<input id="move-goal" type="radio" class="btn-check" name="options" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="move-goal" 
 									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Move end position">
 								<i class="bi bi-octagon-fill"></i>
 							</label>
@@ -194,10 +194,14 @@
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 		<script type='text/javascript'>
+			
 			var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 			var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-				return new bootstrap.Tooltip(tooltipTriggerEl)
+				return new bootstrap.Tooltip(tooltipTriggerEl, {trigger: "hover"});
+				
 			})
+			
+			 
 		</script>
 		
 	</body>
