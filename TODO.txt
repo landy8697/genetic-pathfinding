@@ -1,0 +1,3 @@
+Try to use scss to change the color of the mode button, sliderbars
+
+Mabye randomize magnitude as well as direction

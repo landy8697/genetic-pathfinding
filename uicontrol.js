@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("replay").addEventListener("click", modeReplay);
     document.getElementById("customize").addEventListener("click", modeCustomize);
     document.getElementById("pause-play").addEventListener("click", changePausePlay);
+    document.getElementById("pause-replay").addEventListener("click", changePauseReplay);
     document.getElementById("reset").addEventListener("click", reset);
     document.getElementById("gen-size-range").addEventListener("input", changeGenSize);
     document.getElementById("mutation-rate-range").addEventListener("input", changeMutationRate);
@@ -15,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 function modeSimulate(){
+    paused = false;
+    changePausePlay();
     document.getElementById("select-mode").innerText="Mode: Simulate";
     let hide = document.querySelectorAll('.show-replay, .show-customize');
     hide.forEach(element => {
@@ -27,6 +30,8 @@ function modeSimulate(){
 }
 
 function modeReplay(){
+    paused = false;
+    changePauseReplay();
     document.getElementById("select-mode").innerText="Mode: Replay";
     let hide = document.querySelectorAll('.show-simulate, .show-customize');
     hide.forEach(element => {
@@ -63,6 +68,19 @@ function changePausePlay(){
         pause();
     }
     console.log(startX, startY)
+}
+
+function changePauseReplay(){
+    let btn = document.getElementById("pause-replay");
+    if(paused){
+        btn.innerHTML = `<i class="bi bi-pause"></i>`;
+        paused = false;
+        play();
+    }else{
+        btn.innerHTML = `<i class="bi bi-play"></i>`;
+        paused = true;
+        pause();
+    }
 }
 function reset(){
     console.log("resetting...")

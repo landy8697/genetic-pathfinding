@@ -1,3 +1,5 @@
+p5.disableFriendlyErrors = true;
+
 function setup() {
 	var canvas = createCanvas(800, 800);
 	canvas.parent("sketch-holder");
@@ -5,6 +7,10 @@ function setup() {
 	textSize(18);
 	speed = 1;
 	gen = 1;
+	
+	test = new Population(300);
+	test.update();
+	test.draw();
 }
 
 function pause(){
@@ -16,6 +22,7 @@ function play(){
 }
 var speed;
 var gen;
+var test;
 function draw() {
 	background(255);
 	stroke(0);
@@ -24,6 +31,20 @@ function draw() {
 	line(0, height, width, height);
 	line(width, height, width, 0);
 	line(width, 0, 0, 0);
+
+	if(test.allDead()){
+		if(!paused){
+			test.nextGeneration();
+		}
+		
+	}else{
+		if(!paused){
+			test.update();
+		}
+		
+		test.draw();
+	}
+	
 
 	strokeWeight(0)
 	text(`Generation ${gen}`, 780, 25);	

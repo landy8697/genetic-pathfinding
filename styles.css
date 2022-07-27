@@ -1,4 +1,8 @@
 
+body{
+    background-color:lightcyan;
+}
+
 #sketch-holder{
     text-align: center;
 }
@@ -51,8 +55,15 @@
 .btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited {
     background-color: #8064A2 !important;
 }
-
+.btn-outline-primary, .btn-outline-danger, .btn-outline-dark{
+    background-color: white;
+}
 .replay-options{
     padding-top: 6px;
     padding-bottom: 3px;
 }
+
+.form-range::-webkit-slider-runnable-track {
+    background-color: #fff;
+}
+

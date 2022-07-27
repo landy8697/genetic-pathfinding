@@ -19,3 +19,44 @@
 						<label class="btn btn-sm btn-outline-primary" for="best-btn">Best</label>
 
 					</div>
+
+<div class="mx-2 btn-group">
+							<button type="button" class="btn btn-sm btn-outline-dark" 
+									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Undo">
+								<i class="bi bi-arrow-counterclockwise"></i>
+							</button>
+							<button type="button" class="btn btn-sm btn-outline-dark" 
+									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Redo"></button>>	
+														
+								<i class="bi bi-arrow-clockwise"></i>
+							</button>
+						</div>
+<input type="radio" class="btn-check" name="options" id="draw-rect" autocomplete="off" checked />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="draw-rect" 
+									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Draw an obstacle"></label>>
+								<i class="bi bi-bounding-box-circles"></i>
+							</label>
+						  
+							<input type="radio" class="btn-check" name="options" id="move" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="move" 
+									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Move an obstacle"></label>>
+								<i class="bi bi-arrows-move"></i>
+							</label>
+						  
+							<input type="radio" class="btn-check" name="options" id="delete" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="delete" 
+									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Delete an obstacle"></label>>
+								<i class="bi bi-trash"></i>
+							</label>
+
+							<input type="radio" class="btn-check" name="options" id="start-point" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="start-point" 
+									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Move start position"></label>>
+								<i class="bi bi-flag-fill"></i>
+							</label>
+
+							<input type="radio" class="btn-check" name="options" id="end-point" autocomplete="off" />
+							<label class="btn btn-sm btn-outline-primary replay-options" for="end-point" 
+									data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Move end position"></label>>
+								<i class="bi bi-octagon"></i>
+							</label>
