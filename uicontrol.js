@@ -101,8 +101,8 @@ function reset(){
     console.log("resetting...")
     
     resetGenerations();
-    paused = false;
-    play();
+    paused = true;
+    changePausePlay();
 }
 
 function changeGenSize(){
