@@ -27,6 +27,7 @@ class Population{
     constructor(size){
         this.size = size;
         this.dots = new Array(size);
+        this.minSteps = 400;
         for(let i=0; i<size; i++){
             this.dots[i] = new Dot();
         }
@@ -34,6 +35,9 @@ class Population{
 
     update(){
         for(let i=0; i<this.size; i++){
+            if(this.dots[i].controls.stepCnt > this.minSteps){
+                this.dots[i].dead = true;
+            }
             this.dots[i].update();
         }
     }
@@ -46,22 +50,71 @@ class Population{
     }
 
     nextGeneration(genSize){
-        console.log("Generation")
-        this.size = genSize;
+        console.log("Generation");
+        let fitnessSum = 0;
+        this.calcAllFitness();
+        for(let i=0; i<this.size; i++){
+            fitnessSum += this.dots[i].fitness;
+        }
+        
         let newDots = new Array(genSize);
+        
         for(let i=0; i<genSize; i++){
             newDots[i] = new Dot();
+            newDots[i].controls = this.selectParent(fitnessSum).controls.clone();
+            newDots[i].controls.mutate();
             //newDots[i].controls = this.dots[0].controls.clone();
         }
+        
+        newDots[0].controls = this.bestDot().controls.clone();
+        this.size = genSize;
         this.dots = newDots;
+        console.log(`Max Steps: ${this.minSteps}`)
     }
-    allDead(){
+     
+    bestDot(){
+        let maxFitness = 0;
+        let bestDot = 0;
         for(let i=0; i<this.size; i++){
-            if(!this.dots[i].dead){
+            if(this.dots[i].fitness > maxFitness){
+                maxFitness = this.dots[i].fitness;
+                bestDot = i;
+            }
+        }
+        let best = this.dots[bestDot];
+        if(best.done){
+            this.minSteps = best.controls.stepCnt;
+        }
+        
+        return best;
+    }
+    calcAllFitness(){
+        for(let i=0; i<this.size; i++){
+            this.dots[i].calcFitness();
+            //console.log(this.dots[i].fitness);
+        }
+    }
+
+    allDead(){
+        
+        for(let i=0; i<this.size; i++){
+            if(!(this.dots[i].dead||this.dots[i].done)){
                 return false;
             }
         }
         return true;
+    }
+
+    selectParent(fitnessSum){
+        let selector = random() * fitnessSum;
+        let curSum = 0;
+        for(let i=0; i<this.size; i++){
+            curSum += this.dots[i].fitness;
+            if(selector < curSum){
+                return this.dots[i];
+            }
+        }
+        return this.dots[this.size-1]; //should never reach here
     }
 }
 class Dot{
@@ -71,6 +124,8 @@ class Dot{
         this.vel = createVector(0, 0);
         this.acc = createVector(0, 0);
         this.dead = false;
+        this.done = false;
+        this.fitness = 0.0;
     }
 
     draw(){
@@ -93,32 +148,54 @@ class Dot{
     update(){
         
         if(this.dead)return;
+        if(this.done)return;
         this.move();
         if(this.pos.x<2||this.pos.y<2||this.pos.x>width-2||this.pos.y>height-2){
+            this.dead = true;
+        }else if(p5.Vector.dist(this.pos, endPos) < 5){
+            this.done = true;
+        }else if(this.pos.x<600&&this.pos.y<260&&this.pos.x>0&&this.pos.y>250){
+            this.dead = true;
+        }else if(this.pos.x<800&&this.pos.y<510&&this.pos.x>200&&this.pos.y>500){
             this.dead = true;
         }
     }
 
-    fitness(){
-        
+    calcFitness(){
+        if(this.done){
+            this.fitness = 1.0/16.0 + 10000.0/(this.controls.stepCnt*this.controls.stepCnt);
+          }else{
+            let goalDistance = p5.Vector.dist(this.pos, endPos);
+            //console.log(goalDistance, this.pos, endPos);
+            this.fitness = 1.0/ (goalDistance*goalDistance);
+        }
+        //console.log(this.fitness);
     }
 }
 
 class Controls{
     constructor(size){
         this.steps = new Array(size);
+        this.angles = new Array(size);
         this.stepCnt = 0;
         this.randomize();
     }
 
     randomize(){
         for(let i = 0; i<this.steps.length; i++){
-            this.steps[i] = p5.Vector.fromAngle(random(2*PI));
+            this.angles[i] = random(2*PI);
+            this.steps[i] = p5.Vector.fromAngle(this.angles[i]);
         }
     }
     
     mutate(){
-
+        for(let i = 0; i<this.steps.length; i++){
+            if(random() < mutationRate){
+                this.angles[i] = random(2*PI);
+                this.steps[i] = p5.Vector.fromAngle(this.angles[i]);
+            }
+            //this.steps[i] = p5.Vector.fromAngle(lerp(this.angles[i], this.angles*(1+mutationRate), random(-1, 1)));
+        }
     }
 
     clone(){

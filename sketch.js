@@ -41,6 +41,7 @@ var replayGen = 1;
 var test;
 var paused = false;
 var genSize = 500;
+var mutationRate = 0.01;
 
 var startPos;
 var endPos;
@@ -60,18 +61,25 @@ function draw() {
 	fill(15, 163, 54);
 	ellipse(endPos.x, endPos.y, 8);
 	strokeWeight(3);
-	if(test.allDead()){
-		console.log(`New Generation, Size = ${genSize}`)
-		test.nextGeneration(genSize);
-		gen+=1;
-	}else{
-		if(!paused){
-			test.update();
+
+	fill(150);
+	rect(0, 250, 600, 10);
+	rect(200, 500, 600, 10);
+	for(let i =0; i <speed; i++){
+		if(test.allDead()){
+			test.draw();
+			console.log(`New Generation, Size = ${genSize}`)
+			test.nextGeneration(genSize);
+			gen+=1;
+			test.draw();
+		}else{
+			if(!paused){
+				test.update();
+			}
+			
 		}
-		test.draw();
 	}
-	
-	
+	test.draw();
 	strokeWeight(0);
 	fill(100, 100, 100);
 	text(`Generation ${gen}`, 780, 25);	

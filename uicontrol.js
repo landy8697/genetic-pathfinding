@@ -99,7 +99,10 @@ function changePausePlay(){
 }
 function reset(){
     console.log("resetting...")
+    
     resetGenerations();
+    paused = false;
+    play();
 }
 
 function changeGenSize(){
@@ -112,19 +115,24 @@ function changeGenSize(){
 function changeMutationRate(){
     let amt = parseFloat(document.getElementById("mutation-rate-range").value);
     amt = amt.toFixed(3)
+    mutationRate = amt;
     document.getElementById("mutation-rate-label").innerHTML = 
     `<small>Mutation rate: ${amt}</small>`;
 }
 
 function multiplySpeed(){
-    speed = speed*2;
-    speedChange();
+    if(speed!=64){
+        speed = speed*2;
+        speedChange();
+    }
+    
 }
 function divideSpeed(){
     if(speed!=1){
         speed = speed/2;
+        speedChange();
     }
-    speedChange();
+    
 }
 
 
