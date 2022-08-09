@@ -1,3 +1,6 @@
 Try to use scss to change the color of the mode button, sliderbars
 
 Mabye randomize magnitude as well as direction
+
+MABYE: Instead of Gradient: On/Off, do a show stats dropdown
+Show stats: None, Generation and speed only, show death counter, success counter

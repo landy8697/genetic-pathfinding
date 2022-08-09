@@ -8,21 +8,42 @@ function setup() {
 	speed = 1;
 	gen = 1;
 	
-	test = new Population(500);
+	//setupTriangle();
+	startPos = createVector(400, 790);
+	endPos = createVector(400, 10);
+	test = new Population(genSize);
 	test.update();
 	test.draw();
 }
 
 function pause(){
-	console.log("paused")
+	console.log("paused");
+	noLoop();
 }
 
 function play(){
-	console.log("unpaused")
+	console.log("unpaused");
+	loop();
 }
-var speed;
-var gen;
+
+function speedChange(){
+	draw();
+}
+
+function resetGenerations(){
+	gen = 1;
+	test = new Population(genSize);
+}
+
+var speed = 1;
+var gen = 1;
+var replayGen = 1;
 var test;
+var paused = false;
+var genSize = 500;
+
+var startPos;
+var endPos;
 function draw() {
 	background(255);
 	stroke(0);
@@ -32,22 +53,28 @@ function draw() {
 	line(width, height, width, 0);
 	line(width, 0, 0, 0);
 
+	strokeWeight(0);
+	fill(0, 0, 255);
+	strokeWeight(2);
+	ellipse(startPos.x, startPos.y, 8);
+	fill(15, 163, 54);
+	ellipse(endPos.x, endPos.y, 8);
+	strokeWeight(3);
 	if(test.allDead()){
-		if(!paused){
-			test.nextGeneration();
-		}
-		
+		console.log(`New Generation, Size = ${genSize}`)
+		test.nextGeneration(genSize);
+		gen+=1;
 	}else{
 		if(!paused){
 			test.update();
 		}
-		
 		test.draw();
 	}
 	
-
-	strokeWeight(0)
+	
+	strokeWeight(0);
 	fill(100, 100, 100);
 	text(`Generation ${gen}`, 780, 25);	
 	text(`Speed: ${speed}x`, 780, 50);	
+
 }

@@ -29,7 +29,7 @@
 	<body>
 		<div class="container-fluid">
 			<div class="my-2 d-flex justify-content-center">
-				<h2 id="title" class="border-bottom">Genetic Pathfinding Algorithm</h2>
+				<h2 id="title" class="border-info border-bottom">Genetic Pathfinding Algorithm</h2>
 			</div>
 			
 			<div class="my-2 d-flex justify-content-center">
@@ -40,14 +40,18 @@
 							Mode: Simulate
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-							<li><button id="simulate" class="btn btn-sm dropdown-item" type="button">Simulate</button></li>
-							<li><button id="replay" class="btn btn-sm dropdown-item" type="button">Replay</button></li>
-							<li><button id="customize" class="btn btn-sm dropdown-item" type="button">Customize</button></li>
+							<li><button id="simulate" class="btn btn-sm dropdown-item" type="button"
+								data-bs-toggle="tooltip" data-bs-placement="right"  title="Simulate the Evolution!">Simulate</button></li>
+							<li><button id="replay" class="btn btn-sm dropdown-item" type="button"
+								data-bs-toggle="tooltip" data-bs-placement="right"  title="Still under construction">Replay</button></li>
+							<li><button id="customize" class="btn btn-sm dropdown-item" type="button"
+								data-bs-toggle="tooltip" data-bs-placement="right"  title="Still under construction">Customize</button></li>
 						</ul>
 					</div>
 
 					<div class="btn-group mx-2 show-simulate" role="group">
-						<button id="pause-play" type="button" class="btn btn-sm btn-primary">
+						<button id="pause-play" type="button" class="btn btn-sm btn-primary"
+							data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Pause/Play">
 							<span class="bi bi-pause-fill align-middle"></span> Pause
 						</button>
 						<button id="reset" type="button" class="btn btn-sm btn-outline-danger" 
@@ -60,10 +64,10 @@
 					<div id="sliderbox" class="show-simulate">
 						<div class="row sliderbox-row">
 							<div class="col-6 sliderbox-col">
-								<input id="gen-size-range" type="range" class="form-range" min="50" max="1000" step="50" value="300">
+								<input id="gen-size-range" type="range" class="form-range" min="50" max="1000" step="50" value="500">
 							</div>
 							<div id="gen-size-label" class="col sliderbox-col">
-								<small>Generation size: 300</small>
+								<small>Generation size: 500</small>
 							</div>
 						</div>
 						<div class="row sliderbox-row">
@@ -111,7 +115,7 @@
 							<i class="bi bi-chevron-left"></i>
 						</button>
 						<button id="pause-replay" type="button" class="btn btn-sm btn-outline-primary" 
-								data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Pause">
+								data-bs-toggle="tooltip" data-bs-placement="bottom"  title="Pause/Play">
 							<i class="bi bi-play"></i>
 						</button>
 						<button id="forward" type="button" class="btn btn-sm btn-outline-primary" 
@@ -127,10 +131,10 @@
 						<button  class="btn-sm bg-transparent border-0 fs-6 ">Speed</button>	
 					</div>
 					<div class="btn-group show-simulate show-replay" role="group">
-						<button id="speed-multiply" type="button" class="btn btn-sm btn-outline-dark">
+						<button id="speed-multiply" type="button" class="btn btn-sm btn-outline-primary">
 							x2
 						</button>
-						<button id="speed-divide" type="button" class="btn btn-sm btn-outline-dark">						
+						<button id="speed-divide" type="button" class="btn btn-sm btn-outline-primary">						
 							&#247;2
 						</button>
 					</div>

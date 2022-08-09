@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
 var mode = "simulate"
 function modeSimulate(){
     if(mode=="simulate")return;
-    paused = false;
+    paused = true;
     changePausePlay();
     document.getElementById("select-mode").innerText="Mode: Simulate";
     let hide = document.querySelectorAll('.show-replay, .show-customize');
@@ -82,25 +82,30 @@ function modeCustomize(){
     mode = "customize"
 }
 
-var paused = false;
+
 function changePausePlay(){
     let btn = document.getElementById("pause-play");
     if(paused){
         btn.innerHTML = `<span class="bi bi-pause-fill align-middle"></span> Pause`;
+        btn.title = "Pause the Simulation"
         paused = false;
         play();
     }else{
         btn.innerHTML = `<span class="bi bi-play-fill align-middle"></span> Play`;
+        btn.title = "Continue the Simulation"
         paused = true;
         pause();
     }
 }
 function reset(){
     console.log("resetting...")
+    resetGenerations();
 }
 
 function changeGenSize(){
     let amt = parseInt(document.getElementById("gen-size-range").value);
+    genSize = amt;
+    //console.log(`Next Generation Size: ${genSize}`);
     document.getElementById("gen-size-label").innerHTML = 
     `<small>Generation size: ${amt}</small>`;
 }
@@ -113,11 +118,13 @@ function changeMutationRate(){
 
 function multiplySpeed(){
     speed = speed*2;
+    speedChange();
 }
 function divideSpeed(){
     if(speed!=1){
         speed = speed/2;
     }
+    speedChange();
 }
 
 

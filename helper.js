@@ -1,10 +1,28 @@
-var startX = 400;
-var startY = 780;
 var maxSteps = 400; 
 /*maximum amount of steps a dot can take, based on the min of the 
 previous generation
 */
 
+/* current fitness function
+void calculateFitness(){
+    if(reachedGoal){
+      fitness = 1.0/16.0 + 10000.0/(float)(brain.step*brain.step);
+    }else{
+      float distanceToGoal = dist(pos.x, pos.y, goal.x, goal.y);
+      fitness = 1.0/ (distanceToGoal*distanceToGoal);
+    }
+  }
+*/
+
+/*
+* Add fitness function for each dot
+* CalcAllFitness for population
+* check fitness function
+* mutate() controls, use linear interpolation
+* get parents through a proportional system based on fitness (try fitness^2 too??)
+* top 5% elitism
+* 
+*/
 class Population{
     constructor(size){
         this.size = size;
@@ -20,16 +38,18 @@ class Population{
         }
     }
 
+    
     draw(){
         for(let i=0; i<this.size; i++){
             this.dots[i].draw();
         }
     }
 
-    nextGeneration(){
+    nextGeneration(genSize){
         console.log("Generation")
-        let newDots = new Array(this.size);
-        for(let i=0; i<this.size; i++){
+        this.size = genSize;
+        let newDots = new Array(genSize);
+        for(let i=0; i<genSize; i++){
             newDots[i] = new Dot();
             //newDots[i].controls = this.dots[0].controls.clone();
         }
@@ -47,15 +67,15 @@ class Population{
 class Dot{
     constructor(){
         this.controls = new Controls(400)
-        this.pos = createVector(startX, startY);
+        this.pos = createVector(startPos.x, startPos.y);
         this.vel = createVector(0, 0);
         this.acc = createVector(0, 0);
         this.dead = false;
     }
 
     draw(){
-        stroke(255, 0, 0);
-        ellipse(this.pos.x, this.pos.y, 2, 2);
+        stroke(255, 0, 0);  
+        ellipse(this.pos.x, this.pos.y, 1, 1);
     }
     move(){
         if (this.controls.stepCnt < maxSteps){
@@ -77,6 +97,10 @@ class Dot{
         if(this.pos.x<2||this.pos.y<2||this.pos.x>width-2||this.pos.y>height-2){
             this.dead = true;
         }
+    }
+
+    fitness(){
+        
     }
 }
 
@@ -106,6 +130,33 @@ class Controls{
     }
 }
 
+/*
+level.biases[i]=lerp(
+    level.biases[i],
+    Math.random()*2-1,
+    amount
+);
+*/
 function lerp(A, B, t){
     return A + (B-A) * t;
 }
+
+
+//for drawing triangles
+/*
+function setupTriangle(){
+    t = radians(45);
+    rev = radians(180);
+    r = 3;
+}
+var t;
+var rev;
+var r;
+
+let a = atan((this.vel.y*-1)/this.vel.x);
+        if(this.vel.x<0)a += PI;
+        let x = this.pos.x;
+        let y = this.pos.y;
+        triangle(x+r*cos(t), y-r*sin(t), x+r*cos(t+rev+a), 
+                 y-r*sin(t+rev+a), x+r*cos(t+rev-a), y-r*sin(t+rev-a));
+*/
