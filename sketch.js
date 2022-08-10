@@ -35,6 +35,9 @@ function resetGenerations(){
 	test = new Population(genSize);
 }
 
+function setMutationRate(index){
+	mutationRate = mutationRates[index];
+}
 var speed = 1;
 var gen = 1;
 var replayGen = 1;
@@ -42,7 +45,7 @@ var test;
 var paused = false;
 var genSize = 500;
 var mutationRate = 0.01;
-
+var mutationRates = [0.0001, 0.0002, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1]
 var startPos;
 var endPos;
 function draw() {
@@ -60,11 +63,12 @@ function draw() {
 	ellipse(startPos.x, startPos.y, 8);
 	fill(15, 163, 54);
 	ellipse(endPos.x, endPos.y, 8);
-	strokeWeight(3);
+	strokeWeight(1);
 
 	fill(150);
 	rect(0, 250, 600, 10);
 	rect(200, 500, 600, 10);
+	strokeWeight(3);
 	for(let i =0; i <speed; i++){
 		if(test.allDead()){
 			test.draw();

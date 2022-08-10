@@ -114,10 +114,9 @@ function changeGenSize(){
 }
 function changeMutationRate(){
     let amt = parseFloat(document.getElementById("mutation-rate-range").value);
-    amt = amt.toFixed(3)
-    mutationRate = amt;
+    setMutationRate(amt);
     document.getElementById("mutation-rate-label").innerHTML = 
-    `<small>Mutation rate: ${amt}</small>`;
+    `<small>Mutation rate: ${mutationRate}</small>`;
 }
 
 function multiplySpeed(){
